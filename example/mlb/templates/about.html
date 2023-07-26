@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
+</head>
+<body class="info">
+
+    <div class="topnav">
+      <a href="http://127.0.0.1:8000/search/">Home</a>
+      <a href="http://127.0.0.1:8000/compare/">Compare</a>
+      <a class = "active" href="http://127.0.0.1:8000/about/">About</a>
+      <a href="http://127.0.0.1:8000/FAQ/">FAQ</a>
+        <a href="#settings" class="gear">&#9881;</a>
+    </div>
+<div class="about">
+    <h1 class="info">
+        About the project
+    </h1>
+    <img class="mario" src="../../static/images/mario.png">
+    <p>This is just a small side project From me (Zane ThummBorst) To learn and pick up Django.I wanted to make a project
+    related to something I was casually interested in and found a nice python Package that acted as a wrapper to a baseball
+    API. I have a couple of ideas to continue on based on what the package is capable of, and I'm also considering looking
+    into combining the project into a React frontend (but that's going to be painful at this point so ¯\_(ツ)_/¯). The
+    project also makes use of smaller techs like JQuery, whitenoise, and a JSON pseudo DB (just a file full of names but super useful).
+    </p>
+</div>
+</body>
+</html>

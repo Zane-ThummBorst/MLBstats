@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
+</head>
+<body class="info">
+    <div class="topnav">
+      <a href="http://127.0.0.1:8000/search/">Home</a>
+      <a href="http://127.0.0.1:8000/compare/">Compare</a>
+      <a href="http://127.0.0.1:8000/about/">About</a>
+      <a href="http://127.0.0.1:8000/FAQ/">FAQ</a>
+        <a href="#settings" class="gear">&#9881;</a>
+    </div>
+<div class="header">
+  <h1 class="info">{{name}}</h1>
+  <ul class="desc">
+    <li> Player Number: {{ number }}</li>
+    <li>Current Team: {{ team }}</li>
+    <li>Position: {{position }}</li>
+    <li>Signing Date: {{ debut }}</li>
+    <li>Nickname: {{ nickname }}</li>
+  </ul>
+</div>
+
+<div style="overflow-x: auto;">
+<table>
+  <tr>
+    {% for key, value in playerStats.items %}
+      <th>{{ key }} </th>
+    {% endfor %}
+  </tr>
+  <tr>
+    {% for key, value in playerStats.items %}
+      <td> {{ value }} </td>
+    {% endfor %}
+  </tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
+</head>
+<body class="info">
+    <div class="topnav">
+      <a href="http://127.0.0.1:8000/search/">Home</a>
+      <a class="active" href="http://127.0.0.1:8000/compare/">Compare</a>
+      <a href="http://127.0.0.1:8000/about/">About</a>
+      <a href="http://127.0.0.1:8000/FAQ/">FAQ</a>
+        <a href="#settings" class="gear">&#9881;</a>
+    </div>
+    <div class="about">
+        <h1> UH OH </h1>
+        <h2>The player you searched up is currently unavailable for stats. This can happen for a few reasons:</h2>
+        <ol>
+            <li>The player you searched up is not playing in the current season (Work in progress so that all player stats available in all seasons)</li>
+            <li>Players injured are made invisible to the API and cannot have their stats shown</li>
+            <li>Pitching stats are WIP!</li>
+            <li>The player you searched simply does not exist in the API period.</li>
+        </ol>
+        <h2>Many of these issues are being worked on, but not all of them can be resolved easily (namely player injury).</h2>
+        <h1>Hopefully the site will be improved to reduce the number of no hits on players!</h1>
+    </div>
+</body>
+</html>

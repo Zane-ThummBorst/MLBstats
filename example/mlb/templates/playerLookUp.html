@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <title>AutoComplete</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
+</head>
+
+<body>
+    <div class="topnav">
+      <a class="active" href="http://127.0.0.1:8000/search/">Home</a>
+      <a href="http://127.0.0.1:8000/compare/">Compare</a>
+      <a href="http://127.0.0.1:8000/about/">About</a>
+      <a href="http://127.0.0.1:8000/FAQ/">FAQ</a>
+        <a href="#settings" class="gear">&#9881;</a>
+    </div>
+    <img class="mets" src="../../static/images/the-mets.jpg">
+        <h1 class="lookUp">Please Enter a Player to Search:</h1>
+        <div class = "form">
+            <form action="/player/" method = "post"> {% csrf_token %}
+            <input class = "search" type="text" id="tags" name="tags">
+            <script>
+                $(function () {
+                    var availableTags = [
+                        {% for name in data %}
+                    "{{name}}",
+                    {% endfor %}
+                ];
+                $("#tags").autocomplete({
+                    source: availableTags
+                });
+          } );
+            </script>
+             <input class = "submit" type="submit" value="Submit">
+            </form>
+        </div>
+</body>
+
+</html>
