@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  {% load static %}
+<html>
+<head>
+<!--  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>-->
+    <title>AutoComplete</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link fw-bold" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li>
+          <a class="nav-link fw-bold" href="#">Lineups</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+
+
+<div class="container d-flex justify-content-center mt-3">
+    <p class="display-1 border-bottom text-center">On Base</p>
+</div>
+<div class="container d-flex justify-content-center text-center mt-4">
+    <p class="display-5">Search for players:</p>
+</div>
+
+<div class="container d-flex d-flex justify-content-center mt-3">
+  <form action="/player/" method = "post">
+    {% csrf_token %}
+    <div class="input-group">
+    <input class = "search h1" type="text" id="tags" name="tags">
+    <script>
+    $(function () {
+        var availableTags = [
+            {% for name in data %}
+        "{{name}}",
+        {% endfor %}
+    ];
+    $("#tags").autocomplete({
+        source: availableTags
+    });
+    } );
+  </script>
+    <input class = "submit h1 btn btn-secondary btn-lg" type="submit" value="Submit">
+  </div>
+  </form>
+  </div>
+<div class="container-fluid mt-5 pt-5 border-bottom w-75"></div>
+<div class="container-fluid-sm">
+  <footer class="pt-2 my-md-5 pt-md-3 mx-auto w-50 bg-muted">
+    <div class="row">
+    <div class="col-3 col-md">
+      <p class="h5 fw-bold">Product Creator</p>
+      <ul class="list-unstyled">
+        <li>Zane ThummBorst</li>
+      </ul>
+    </div>
+    <div class="col-3 col-md">
+      <p class="h5 fw-bold">Features</p>
+      <ul class="list-unstyled">
+        <li><a class="text-muted text-decoration-none" href="#">Player Search</a></li>
+        <li><a class="text-muted text-decoration-none" href="#">Team Lineups</a></li>
+        <li><a class="text-muted text-decoration-none" href="#">Boxscores</a></li>
+        <li><a class="text-muted text-decoration-none" href="#">League Leaders</a></li>
+      </ul>
+    </div>
+    <div class="col-3 col-md">
+      <p class="h5 fw-bold">Resources</p>
+      <ul class="list-unstyled">
+        <li><a class="text-muted text-decoration-none" href="#">TechStack</a></li>
+        <li><a class="text-muted text-decoration-none" href="#">Bootstrap</a></li>
+        <li><a class="text-muted text-decoration-none" href="#">API(s)</a></li>
+      </ul>
+    </div>
+    <div class="col-3 col-md">
+      <p class="h5 fw-bold">About</p>
+      <ul class="list-unstyled">
+        <li><a class="text-muted text-decoration-none" href="#">Project</a></li>
+        <li><a class="text-muted text-decoration-none" href="#">Developer</a></li>
+      </ul>
+  </div>
+  </div>
+  </footer>
+</div>
+</body>
+</html>
