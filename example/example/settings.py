@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mlb',
     'import_export',
-    'bootstrap5'
+    'bootstrap5',
+    'members'
 ]
 
 MIDDLEWARE = [
