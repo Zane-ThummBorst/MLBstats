@@ -19,3 +19,7 @@ def login_user(request):
             return redirect('login2')
     else:
         return render(request, "authenticate/login.html", {})
+
+def logout_user(request):
+    logout(request)
+    return redirect('search')
