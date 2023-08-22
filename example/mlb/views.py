@@ -26,7 +26,9 @@ def player(request):
     name = request.POST.get('tags')
     print(name)
     try:
-        player_stats = back.playerInfo(name)
+        pb = back.playerInfo(name)
+        player_stats = pb[0]
+        abbr = pb[1]
         player_info = back.lookup(name)
     except:
         return render(request, 'playerNotFound.html')
@@ -42,9 +44,10 @@ def player(request):
         'debut': player_info['mlbDebutDate'],
         'nickname': nickname,
         'playerStats': player_stats,
-        'name': name
+        'name': name,
+        'abbr': abbr
     }
-    return render(request, 'playerInfo.html', context)
+    return render(request, 'playerInfoB.html', context)
 
 def search(request):
     # if request.method == "POST":
@@ -52,8 +55,8 @@ def search(request):
     f = open('PlayerList.json')
     data = json.load(f)['list']
 
-    template = loader.get_template('playerLookUp.html')
+    template = loader.get_template('playerLookUpB.html')
     #return HttpResponse(template.render(), {'data': data})
-    return render(request, 'playerLookUp.html', {'data': data})
+    return render(request, 'playerLookUpB.html', {'data': data})
 
 

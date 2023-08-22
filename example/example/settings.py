@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mlb',
-    'import_export'
+    'import_export',
+    'bootstrap5',
+    'members'
 ]
 
 MIDDLEWARE = [
