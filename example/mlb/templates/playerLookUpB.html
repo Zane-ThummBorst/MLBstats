@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html>
-<head>
-    {% load bootstrap5 %}
+  {% load bootstrap5 %}
   {% bootstrap_css %}
   {% bootstrap_javascript %}
   {% load static %}
+<html>
+<head>
+<!--  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>-->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/alt.css' %}"/>
+    <title>AutoComplete</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
@@ -23,6 +31,11 @@
         <a class="nav-link fw-bold" href="http://127.0.0.1:8000/about/">About</a>
       </li>
       <li><a class="nav-link fw-bold" href="http://127.0.0.1:8000/compare/">Compare</a></li>
+      {% if user.is_authenticated %}
+      <li><a class="nav-link fw-bold" href="http://127.0.0.1:8000/members/logout_user">Logout</a></li>
+      {% else %}
+      <li><a class="nav-link fw-bold" href="http://127.0.0.1:8000/members/login_user">Login</a></li>
+      {% endif %}
     </ul>
   </div>
 </nav>
@@ -30,30 +43,37 @@
 
 
 
-<div class="container bg-light rounded shadow mt-5 w-75">
-    <div class="d-flex justify-content-center mt-3">
-        <h1 class="display-1 border-bottom pb-3">About the project</h1>
-        </div>
-
-    <div class="d-flex justify-content-center mt-3">
-            <img class="rounded mx-auto d-block w-50 h-50" src="../../static/images/mario.png">
-    </div>
-
-    <div class="d-flex justify-content-center mt-3 mb-5">
-        <p class="w-50">This is just a small side project From me (Zane ThummBorst) To learn and pick up Django.I wanted to make a project
-        related to something I was casually interested in and found a nice python Package that acted as a wrapper to a baseball
-        API. I have a couple of ideas to continue on based on what the package is capable of, and I am currently working on adding bootstrap
-        to the rest of the pages/ make everything look consistent in the frontend. This project also makes use of smaller techs like JQuery, whitenoise,
-            and JSON files(to be converted into a noSQL DB).
-        </p>
-    </div>
+<div class="container d-flex justify-content-center mt-3">
+    <p class="display-1 border-bottom text-center">On Base</p>
+</div>
+<div class="container d-flex justify-content-center text-center mt-4">
+    <p class="display-5">Search for players:</p>
 </div>
 
-
-
+<div class="container d-flex d-flex justify-content-center mt-3">
+  <form action="/player/" method = "post">
+    {% csrf_token %}
+    <div class="input-group">
+    <input class = "search h1 rounded" type="text" id="tags" name="tags">
+    <script>
+    $(function () {
+        var availableTags = [
+            {% for name in data %}
+        "{{name}}",
+        {% endfor %}
+    ];
+    $("#tags").autocomplete({
+        source: availableTags
+    });
+    } );
+  </script>
+    <input class = "submit h1 btn btn-secondary btn-lg" type="submit" value="Submit">
+  </div>
+  </form>
+  </div>
 <div class="container-fluid mt-5 pt-5 border-bottom w-75"></div>
 <div class="container-fluid-sm">
-  <footer class="pt-2 my-md-5 pt-md-3 mx-auto w-50 bg-muted">
+  <footer class="pt-2 my-md-5 pt-md-3 mx-auto w-50">
     <div class="row">
     <div class="col-3 col-md">
       <p class="h5 fw-bold">Product Creator</p>
