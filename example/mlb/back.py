@@ -126,8 +126,8 @@ def standings():
     stand = sa.standings_data(leagueId="103", division="all", include_wildcard=True, season=None, standingsTypes=None, date=None)
     return stand
 
-def roster():
-    r = sa.roster(143)
+def roster(teamId):
+    r = sa.roster(teamId)
     result =[]
     arr = r.split('\n')
     for e in arr:
@@ -146,3 +146,9 @@ def roster():
         )
     return result
 
+def nameToTeamId(name):
+    teams = sa.lookup_team('')
+    for team in teams:
+        if team['teamName'] == name:
+            return team['id']
+    return -1
