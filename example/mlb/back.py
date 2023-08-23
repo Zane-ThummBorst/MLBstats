@@ -14,7 +14,7 @@ abbreviations = {
     "gamesPlayed": "GP",
     "groundOuts": "GO",
     "airOuts": "AO",
-    "runs": "r",
+    "runs": "R",
     "doubles": "2B",
     "triples": "3B",
     "homeRuns": "HR",
@@ -23,7 +23,7 @@ abbreviations = {
     "intentionalWalks": "IW",
     "hits": "H",
     "hitByPitch": "HBP",
-    "avg": "avg",
+    "avg": "AVG",
     "atBats": "AB",
     "obp": "OBP",
     "slg": "SLG",
@@ -32,7 +32,7 @@ abbreviations = {
     "stolenBases": "SB",
     "stolenBasePercentage": "SBP",
     "groundIntoDoublePlay": "GIDP",
-    "numberOfPitches": "NUP",
+    "numberOfPitches": "NOP",
     "plateAppearances": "PA",
     "totalBases": "TB",
     "rbi": "RBI",
@@ -152,3 +152,12 @@ def nameToTeamId(name):
         if team['teamName'] == name:
             return team['id']
     return -1
+
+def allTeams():
+    teams = sa.lookup_team('')
+    arr = []
+    for team in teams:
+        arr.append(team['teamName'])
+
+    return arr
+

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
-<head>
-    {% load bootstrap5 %}
+  {% load bootstrap5 %}
   {% bootstrap_css %}
   {% bootstrap_javascript %}
   {% load static %}
+<html>
+<head>
+<!--  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>-->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/alt.css' %}"/>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
@@ -23,35 +25,45 @@
         <a class="nav-link fw-bold" href="http://127.0.0.1:8000/about/">About</a>
       </li>
       <li><a class="nav-link fw-bold" href="http://127.0.0.1:8000/compare/">Compare</a></li>
+      {% if user.is_authenticated %}
+      <li><a class="nav-link fw-bold" href="http://127.0.0.1:8000/members/logout_user">Logout</a></li>
+      {% else %}
+      <li><a class="nav-link fw-bold" href="http://127.0.0.1:8000/members/login_user">Login</a></li>
+      {% endif %}
     </ul>
   </div>
 </nav>
 
 
+<div class="border mx-auto w-50 shadow-sm mt-3">
+  <div class = 'container d-flex justify-content-center mt-1'>
+    <p class="display-3 border-bottom border-3 border-secondary pb-2 fw-bold">The {{team}}</p>
+  </div>
 
+  <div class = 'container d-flex justify-content-center mt-1'>
+    <img class="w-50 h-50"  src="{% static 'images/'|add:team|add:'.png' %}" alt="{{ team }}">
+  </div>
+</div>
 
-    <div class="container mt-5 w-50 border shadow-sm bg-light rounded">
-        <div class="container d-flex justify-content-center mt-3"><p class="display-1 border-bottom"> UH OH </p></div>
-        <div class="container d-flex justify-content-center mt-3">
-            <p class="h3 text-center">The player you searched up is currently unavailable for stats. This can happen for a few reasons:</p>
-        </div>
-        <div class="container d-flex justify-content-center mt-3">
-            <ol>
-            <li>The player you searched up is not playing in the current season (Work in progress so that all player stats available in all seasons)</li>
-            <li>Players injured are made invisible to the API and cannot have their stats shown</li>
-            <li>Pitching stats are WIP!</li>
-            <li>The player you searched simply does not exist in the API period.</li>
-        </ol>
-        </div>
-        <div class="container d-flex justify-content-center my-3">
-         <p class="h2 text-center">Many of these issues are being worked on, but not all of them can be resolved easily (namely player injury).</p>
-        </div>
-    </div>
-
-
+<div class = 'container d-flex justify-content-center mt-3'>
+  <table class="table table-bordered bg-light shadow-sm w-50">
+            <tr>
+              <th>Number</th>
+              <th>Name</th>
+              <th>Position</th>
+            </tr>
+       {% for player in lineup %}
+            <tr>
+                <td>{{ player.number }}</td>
+                <td>{{ player.name }}</td>
+                <td>{{ player.position }} </td>
+            </tr>
+        {% endfor %}
+</table>
+</div>
 <div class="container-fluid mt-5 pt-5 border-bottom w-75"></div>
-<div class="container-fluid">
-  <footer class="pt-2 my-md-5 pt-md-3 mx-auto w-50 bg-muted">
+<div class="container-fluid-sm">
+  <footer class="pt-2 my-md-5 pt-md-3 mx-auto w-50">
     <div class="row">
     <div class="col-3 col-md">
       <p class="h5 fw-bold">Product Creator</p>
@@ -86,5 +98,6 @@
   </div>
   </footer>
 </div>
+
 </body>
 </html>
