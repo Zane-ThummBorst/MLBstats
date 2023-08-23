@@ -9,5 +9,7 @@ urlpatterns = [
     path('compare/', views.compare, name='compare'),
     path('about/', views.about, name='about'),
     path('FAQ/', views.faq, name='FAQ'),
-    path('playerNotFound', views.search, name='playerNotFound')
+    path('playerNotFound', views.search, name='playerNotFound'),
+    path('roster_search', views.roster_search, name="roster_search"),
+    path('roster_info/', views.roster_info, name="roster_info")
 ]

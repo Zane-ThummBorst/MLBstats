@@ -59,4 +59,16 @@ def search(request):
     #return HttpResponse(template.render(), {'data': data})
     return render(request, 'playerLookUpB.html', {'data': data})
 
+def roster_search(request):
+    data = back.allTeams()
+    return render(request, 'rosterSearch.html', {'data': data})
+
+def roster_info(request):
+    if request.method == 'POST':
+        team = request.POST.get('tags')
+        team_id = back.nameToTeamId(team)
+        lineup = back.roster(team_id)
+        return render(request, 'roster_info.html', {'lineup': lineup,
+                                                    'team': team})
+
 

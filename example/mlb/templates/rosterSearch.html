@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html>
-<head>
-    {% load bootstrap5 %}
+  {% load bootstrap5 %}
   {% bootstrap_css %}
   {% bootstrap_javascript %}
   {% load static %}
+<html>
+<head>
+<!--  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>-->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/alt.css' %}"/>
+    <title>AutoComplete</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
@@ -23,6 +31,11 @@
         <a class="nav-link fw-bold" href="http://127.0.0.1:8000/about/">About</a>
       </li>
       <li><a class="nav-link fw-bold" href="http://127.0.0.1:8000/compare/">Compare</a></li>
+      {% if user.is_authenticated %}
+      <li><a class="nav-link fw-bold" href="http://127.0.0.1:8000/members/logout_user">Logout</a></li>
+      {% else %}
+      <li><a class="nav-link fw-bold" href="http://127.0.0.1:8000/members/login_user">Login</a></li>
+      {% endif %}
     </ul>
   </div>
 </nav>
@@ -30,28 +43,37 @@
 
 
 
-    <div class="container mt-5 w-50 border shadow-sm bg-light rounded">
-        <div class="container d-flex justify-content-center mt-3"><p class="display-1 border-bottom"> UH OH </p></div>
-        <div class="container d-flex justify-content-center mt-3">
-            <p class="h3 text-center">The player you searched up is currently unavailable for stats. This can happen for a few reasons:</p>
-        </div>
-        <div class="container d-flex justify-content-center mt-3">
-            <ol>
-            <li>The player you searched up is not playing in the current season (Work in progress so that all player stats available in all seasons)</li>
-            <li>Players injured are made invisible to the API and cannot have their stats shown</li>
-            <li>Pitching stats are WIP!</li>
-            <li>The player you searched simply does not exist in the API period.</li>
-        </ol>
-        </div>
-        <div class="container d-flex justify-content-center my-3">
-         <p class="h2 text-center">Many of these issues are being worked on, but not all of them can be resolved easily (namely player injury).</p>
-        </div>
-    </div>
+<div class="container d-flex justify-content-center mt-3">
+    <p class="display-1 border-bottom text-center">Roster Search</p>
+</div>
+<div class="container d-flex justify-content-center text-center mt-4">
+    <p class="display-5">Search for a Team:</p>
+</div>
 
-
+<div class="container d-flex d-flex justify-content-center mt-3">
+  <form action="/roster_info/" method = "POST">
+    {% csrf_token %}
+    <div class="input-group">
+    <input class = "search h1 rounded" type="text" id="tags" name="tags">
+    <script>
+    $(function () {
+        var availableTags = [
+        {% for name in data %}
+            "{{name}}",
+        {% endfor %}
+    ];
+    $("#tags").autocomplete({
+        source: availableTags
+    });
+    } );
+  </script>
+    <input class = "submit h1 btn btn-secondary btn-lg" type="submit" value="Submit">
+  </div>
+  </form>
+  </div>
 <div class="container-fluid mt-5 pt-5 border-bottom w-75"></div>
-<div class="container-fluid">
-  <footer class="pt-2 my-md-5 pt-md-3 mx-auto w-50 bg-muted">
+<div class="container-fluid-sm">
+  <footer class="pt-2 my-md-5 pt-md-3 mx-auto w-50">
     <div class="row">
     <div class="col-3 col-md">
       <p class="h5 fw-bold">Product Creator</p>
