@@ -53,7 +53,6 @@ def playerInfo(name):
         d = sa.player_stat_data(player.get('id'), 'hitting', 'season')
         d = d.get('stats')
         stats = d[0].get('stats')
-        print(stats)
         return [stats, abbreviations]
 
 
@@ -169,4 +168,22 @@ def allTeams():
 
     return arr
 
-print(json.dumps(teamRecord(143), indent=4))
+def playerInfo2(name,year):
+    # Think about an edge case where there are two players with the same name????
+    for player in sa.lookup_player(name):
+        d = sa.player_stat_data(player.get('id'), 'hitting', 'yearByYear')
+        d = d.get('stats')
+        for season in d:
+            if season['season'] == str(year):
+                return [season['stats'], abbreviations]
+        return -1
+
+def playerInfoP2(name,year):
+    # Think about an edge case where there are two players with the same name????
+    for player in sa.lookup_player(name):
+        d = sa.player_stat_data(player.get('id'), 'pitching', 'yearByYear')
+        d = d.get('stats')
+        for season in d:
+            if season['season'] == str(year):
+                return [season['stats'], abbreviations]
+        return -1
