@@ -68,7 +68,10 @@ def roster_info(request):
         team = request.POST.get('tags')
         team_id = back.nameToTeamId(team)
         lineup = back.roster(team_id)
+        record = back.teamRecord(team_id)
         return render(request, 'roster_info.html', {'lineup': lineup,
-                                                    'team': team})
+                                                    'team': team,
+                                                    'record': record
+                                                    })
 
 

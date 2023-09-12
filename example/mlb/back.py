@@ -1,5 +1,5 @@
 import statsapi as sa
-import django
+import json
 
 # sets of all possible stats for leader functions (hitting and pitching)
 # May be useful if combining data
@@ -123,8 +123,16 @@ def season_timeline():
     print(data)
 
 def standings():
-    stand = sa.standings_data(leagueId="103", division="all", include_wildcard=True, season=None, standingsTypes=None, date=None)
+    stand = sa.standings_data(leagueId="103,104", division="all", include_wildcard=True, season=None, standingsTypes=None, date=None)
     return stand
+
+def teamRecord(id):
+    stand = standings()
+    for league in stand:
+        for elem in stand[league]['teams']:
+            if elem['team_id'] == id:
+                return elem
+
 
 def roster(teamId):
     r = sa.roster(teamId)
@@ -161,3 +169,4 @@ def allTeams():
 
     return arr
 
+print(json.dumps(teamRecord(143), indent=4))
