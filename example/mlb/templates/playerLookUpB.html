@@ -18,10 +18,11 @@
     <script>
     $(function () {
         var availableTags = [
-            {% for name in data %}
-        "{{name}}",
+        {% for name in data %}
+            "{{name}}",
         {% endfor %}
     ];
+
     $("#tags").autocomplete({
         source: availableTags
     });

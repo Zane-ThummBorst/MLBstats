@@ -26,18 +26,23 @@ def faq(request):
 def player(request):
     name = request.POST.get('tags')
     year = request.POST.get('year')
+    stat = request.POST.get('stat')
+    print(stat)
     try:
-        pb = back.playerInfo2(name, year)
+        pb = back.playerInfo2(name, year, stat.lower())
         player_stats = pb[0]
         abbr = pb[1]
         player_info = back.lookup(name)
     except:
         return render(request, 'playerNotFound.html')
+
     team = back.team(player_info.get('currentTeam').get('id'))
+
     try:
         nickname = player_info['nickName']
     except:
         nickname = "NONE"
+
     context = {
         'number': player_info['primaryNumber'],
         'team': team,
