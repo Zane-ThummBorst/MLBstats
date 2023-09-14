@@ -27,7 +27,15 @@ def player(request):
     name = request.POST.get('tags')
     year = request.POST.get('year')
     stat = request.POST.get('stat')
-    print(stat)
+    MLBAMID = 1;
+    f = open('razzball.json', encoding='utf-8')
+    data = json.load(f)
+    for player in data:
+        if player['Name'] == name:
+            MLBAMID = player['MLBAMID']
+    print(MLBAMID)
+    f.close()
+    headshot = 'https://midfield.mlbstatic.com/v1/people/' + str(MLBAMID) + '/spots/300'
     try:
         pb = back.playerInfo2(name, year, stat.lower())
         player_stats = pb[0]
@@ -51,7 +59,8 @@ def player(request):
         'nickname': nickname,
         'playerStats': player_stats,
         'name': name,
-        'abbr': abbr
+        'abbr': abbr,
+        'headshot': headshot
     }
     return render(request, 'playerInfoB.html', context)
 
