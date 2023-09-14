@@ -1,5 +1,5 @@
 import statsapi as sa
-import django
+import json
 
 # sets of all possible stats for leader functions (hitting and pitching)
 # May be useful if combining data
@@ -10,6 +10,7 @@ import django
 #                   "inningsPitched", "hits", "runs", "earnedRuns", "homeRuns","hitBatsman", "walks", "strikeouts", "whip", "avg",
 #                   "totalBattersFaced", "numberOfPitches", "pitchesPerInning", "gamesFinished","holds", "intentionalWalks",
 #                   "wildPitches", "balks", "groundIntoDoublePlay", "StolenBases", "caughtStealing", "pickoffs"}
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
 abbreviations = {
     "gamesPlayed": "GP",
     "groundOuts": "GO",
@@ -44,6 +45,19 @@ abbreviations = {
     "catchersInterference": "CI",
     "atBatsPerHomeRun": "AB/HR"
 }
+abbreviationsP = dict(gamesPlayed='GP', gamesStarted='GS', groundOuts='GO', airOuts='AO', runs='R', doubles='2B',
+                      triples='3B', homeRuns='HR', strikeOuts='SO', baseOnBalls='BB', intentionalWalks='IW', hits='H',
+                      hitByPitch='HBP', avg='AVG', atBats='AB', obp='OBP', slg='SLG', ops='OPS', caughtStealing='CS',
+                      stolenBases='SB', stolenBasePercentage='SBP', groundIntoDoublePlay='GIDP', numberOfPitches='NOP',
+                      era='ERA', inningsPitched='IP', wins='W', losses='L', saves='S', saveOpportunities='SO',
+                      holds='H', blownSaves='BS', earnedRuns='ER', whip='WHIP', battersFaced='BF', outs='O',
+                      gamesPitched='GP', completeGames='CG', shutouts='ShO', strikes='TS', strikePercentage='SP',
+                      hitBatsmen='HB', balks='BK', wildPitches='WP', pickoffs='P', totalBases='TB',
+                      groundOutsToAirouts='GOTA', winPercentage='WP', pitchesPerInning='PPI', gamesFinished='GF',
+                      strikeoutWalkRatio='SWR', strikeoutsPer9Inn='K/9', walksPer9Inn='W/9', hitsPer9Inn='H/9',
+                      runsScoredPer9='R/9', homeRunsPer9='HR/9', inheritedRunners='IR', inheritedRunnersScored='IRS',
+                      catchersInterference='CI', sacBunts='SB', sacFlies='SF')
+
 
 
 # Hitting stats
@@ -53,7 +67,6 @@ def playerInfo(name):
         d = sa.player_stat_data(player.get('id'), 'hitting', 'season')
         d = d.get('stats')
         stats = d[0].get('stats')
-        print(stats)
         return [stats, abbreviations]
 
 
@@ -123,8 +136,16 @@ def season_timeline():
     print(data)
 
 def standings():
-    stand = sa.standings_data(leagueId="103", division="all", include_wildcard=True, season=None, standingsTypes=None, date=None)
+    stand = sa.standings_data(leagueId="103,104", division="all", include_wildcard=True, season=None, standingsTypes=None, date=None)
     return stand
+
+def teamRecord(id):
+    stand = standings()
+    for league in stand:
+        for elem in stand[league]['teams']:
+            if elem['team_id'] == id:
+                return elem
+
 
 def roster(teamId):
     r = sa.roster(teamId)
@@ -160,4 +181,32 @@ def allTeams():
         arr.append(team['teamName'])
 
     return arr
+
+def playerInfo2(name,year,stat):
+    # Think about an edge case where there are two players with the same name????
+    for player in sa.lookup_player(name):
+        d = sa.player_stat_data(player.get('id'), stat, 'yearByYear')
+        d = d.get('stats')
+        for season in d:
+            if season['season'] == str(year):
+
+                return [season['stats'], abbreviations if stat == 'hitting' else abbreviationsP]
+        return -1
+
+def playerInfoP2(name,year):
+    # Think about an edge case where there are two players with the same name????
+    for player in sa.lookup_player(name):
+        d = sa.player_stat_data(player.get('id'), 'pitching', 'yearByYear')
+        d = d.get('stats')
+        for season in d:
+            if season['season'] == str(year):
+                return [season['stats'], abbreviations]
+        return -1
+
+def retrieve_players():
+    players = set()
+    for c in alphabet:
+        for player in sa.lookup_player(c):
+            players.add(player['fullName'])
+    return players
 

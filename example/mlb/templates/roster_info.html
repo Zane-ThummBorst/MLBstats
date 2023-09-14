@@ -10,8 +10,15 @@
   <div class = 'container d-flex justify-content-center mt-1'>
     <img class="w-50 h-50"  src="{% static 'images/'|add:team|add:'.png' %}" alt="{{ team }}">
   </div>
+<div class = 'container bg-light d-flex justify-content-center my-3'>
+    <ul class="list-group-flush h4 text-left">
+        <li class="list-group-item bg-light">Division Rank: {{ record.div_rank }}</li>
+        <li class="list-group-item bg-light"> Win/Loss: {{ record.w }} / {{ record.l }} </li>
+        <li class="list-group-item bg-light"> League Rank: {{record.league_rank }}</li>
+        <li class="list-group-item bg-light"> MLB Rank: {{ record.sport_rank }}</li>
+    </ul>
 </div>
-
+</div>
 <div class = 'container d-flex justify-content-center mt-3'>
   <table class="table table-bordered bg-light shadow-sm w-50">
             <tr>

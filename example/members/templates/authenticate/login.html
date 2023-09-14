@@ -1,23 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-  {% load bootstrap5 %}
-  {% bootstrap_css %}
-  {% bootstrap_javascript %}
-  {% load static %}
-</head>
-<body>
-<form action="" method="POST">
-    {% csrf_token %}
-  <div class="form-group">
-    <label>Username</label>
-    <input class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter username">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label>Password</label>
-    <input type="password" class="form-control" name="password" placeholder="Password">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-</body>
+{% extends "base.html" %}
+{% block content %}
+<div class="container d-flex justify-content-center">
+    <p class="display-3">Login</p>
+</div>
+<div class="container d-flex justify-content-center w-50 mt-4">
+  <form action="" method="POST">
+      {% csrf_token %}
+    <div class="form-group">
+      <label>Username</label>
+      <input class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter username">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" name="password" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+      <p class="h6 mt-3 justify-content-center">No Account? Sign up <a href="http://127.0.0.1:8000/members/register_user">Here!</a></p>
+  </form>
+</div>
+{% endblock content %}
