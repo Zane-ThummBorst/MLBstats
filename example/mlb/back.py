@@ -1,15 +1,6 @@
 import statsapi as sa
 import json
 
-# sets of all possible stats for leader functions (hitting and pitching)
-# May be useful if combining data
-# hitting_stats = {"era", "homeRuns", "atBats", "runs", "hits", "doubles", "triples", "rbi", "walks", "strikeouts", "stolenBases",
-#                  "caughtStealing", "gamesPlayed", "avg", "ops", "obp", "slg", "hitByPitch", "plateAppearances", "sacrificeBunts",
-#                  "sacFlies", "gidp", "extraBaseHits", "totalBases", "intentionalWalks", }
-# pitching_stats = {"era", "wins", "losses", "games", "gamesStarted", "completeGames", "shutouts", "saves", "saveOpportunities",
-#                   "inningsPitched", "hits", "runs", "earnedRuns", "homeRuns","hitBatsman", "walks", "strikeouts", "whip", "avg",
-#                   "totalBattersFaced", "numberOfPitches", "pitchesPerInning", "gamesFinished","holds", "intentionalWalks",
-#                   "wildPitches", "balks", "groundIntoDoublePlay", "StolenBases", "caughtStealing", "pickoffs"}
 alphabet = 'abcdefghijklmnopqrstuvwxyz'
 abbreviations = {
     "gamesPlayed": "GP",
