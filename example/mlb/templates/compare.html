@@ -1,15 +1,42 @@
 {% extends "base.html" %}
-
 {% block content %}
+{% load static %}
+<div class="container d-flex d-flex justify-content-center mt-3">
+  <form action="/compare/" method = "post">
+    {% csrf_token %}
+    <div class="input-group">
+    <input class = "search h1 rounded" type="text" id="tags" name="tags">
+    <script>
+    $(function () {
+        var availableTags = [
+        {% for name in data %}
+            "{{name}}",
+        {% endfor %}
+    ];
 
+    $("#tags").autocomplete({
+        source: availableTags
+    });
+    } );
+  </script>
 
+    <input class = "submit h1 btn btn-secondary mx-2 rounded" type="submit" value="Submit">
+  </div>
+  </form>
+  </div>
+  <div class="table-responsive mt-5">
+<table class="table table-bordered bg-light shadow-sm">
+  <tr>
+    {% for key, value in abbr.items %}
+      <th data-bs-toggle="tooltip" title={{key}}> {{ value }} </th>
+    {% endfor %}
+  </tr>
+  <tr>
+    {% for key, value in playerStats.items %}
+      <td> {{ value }} </td>
+    {% endfor %}
+  </tr>
+</table>
+</div>
 
-    <div class="container mt-5">
-    <div class="d-flex justify-content-center mt-3">
-        <p class="display-1"> Coming Eventually </p>
-    </div>
-    <div class="d-flex justify-content-center mt-3">
-        <img class ="rounded w-75 h-75" src="../../static/images/comingSoon.jpg">
-    </div>
-    </div>
 {% endblock content %}

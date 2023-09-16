@@ -11,8 +11,40 @@ def mlb(request):
     return HttpResponse(template.render())
 
 def compare(request):
-    template = loader.get_template('compare.html')
-    return HttpResponse(template.render())
+    if request.method == 'POST':
+        name = request.POST.get('tags')
+        print(name)
+        try:
+            pb = back.playerInfo2(name, 2023, 'hitting')
+            player_stats = pb[0]
+            abbr = pb[1]
+            player_info = back.lookup(name)
+        except:
+            return render(request, 'playerNotFound.html')
+        f = open('PlayerList.json')
+        data = json.load(f)['list']
+        f.close()
+        date = datetime.date.today()
+        year = []
+        for i in range(2003, date.year + 1):
+            year.append(i)
+        print(year)
+        return render(request, 'compare.html', {'data': data,
+                                                'year': year,
+                                                'playerStats': player_stats,
+                                                'abbr': abbr,
+                                                })
+    else:
+        f = open('PlayerList.json')
+        data = json.load(f)['list']
+        f.close()
+        date = datetime.date.today()
+        year = []
+        for i in range(2003,date.year + 1):
+            year.append(i)
+        print(year)
+        return render(request, 'compare.html', {'data': data,
+                                                'year': year})
 
 
 def about(request):
@@ -75,8 +107,6 @@ def search(request):
     for i in range(2003,date.year + 1):
         year.append(i)
     print(year)
-    template = loader.get_template('playerLookUpB.html')
-    #return HttpResponse(template.render(), {'data': data})
     return render(request, 'playerLookUpB.html', {'data': data,
                                                   'year': year})
 
