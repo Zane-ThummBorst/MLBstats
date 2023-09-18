@@ -2,25 +2,25 @@
 
 {% block content %}
 {% load static %}
-<div class="border mx-auto w-50 shadow-sm mt-3">
+<div class="mx-auto w-50 shadow-sm mt-3 secondary rounded">
   <div class = 'container d-flex justify-content-center mt-1'>
-    <p class="display-3 border-bottom border-3 border-secondary pb-2 fw-bold">The {{team}}</p>
+    <p class="display-3 border-bottom border-3 pb-2 fw-bold">The {{team}}</p>
   </div>
 
   <div class = 'container d-flex justify-content-center mt-1'>
     <img class="w-50 h-50"  src="{% static 'images/'|add:team|add:'.png' %}" alt="{{ team }}">
   </div>
-<div class = 'container bg-light d-flex justify-content-center my-3'>
-    <ul class="list-group-flush h4 text-left">
-        <li class="list-group-item bg-light">Division Rank: {{ record.div_rank }}</li>
-        <li class="list-group-item bg-light"> Win/Loss: {{ record.w }} / {{ record.l }} </li>
-        <li class="list-group-item bg-light"> League Rank: {{record.league_rank }}</li>
-        <li class="list-group-item bg-light"> MLB Rank: {{ record.sport_rank }}</li>
+  <div class = 'container d-flex justify-content-center my-3'>
+    <ul class="list-group h4 text-left mb-3">
+        <li class="list-group-item tertiary">Division Rank: {{ record.div_rank }}</li>
+        <li class="list-group-item tertiary"> Win/Loss: {{ record.w }} / {{ record.l }} </li>
+        <li class="list-group-item tertiary"> League Rank: {{record.league_rank }}</li>
+        <li class="list-group-item tertiary"> MLB Rank: {{ record.sport_rank }}</li>
     </ul>
 </div>
 </div>
-<div class = 'container d-flex justify-content-center mt-3'>
-  <table class="table table-bordered bg-light shadow-sm w-50">
+<div class = 'container d-flex justify-content-center mt-5'>
+  <table class="table table-bordered tertiary shadow-sm w-50">
             <tr>
               <th>Number</th>
               <th>Name</th>
@@ -35,4 +35,5 @@
         {% endfor %}
 </table>
 </div>
+
 {% endblock content %}

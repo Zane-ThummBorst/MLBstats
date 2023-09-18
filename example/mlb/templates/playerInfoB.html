@@ -4,7 +4,7 @@
 
 
 
-<div class="container shadow-sm border bg-light my-3 px-5 w-50 rounded">
+<div class="container shadow-sm my-4 px-5 w-50 rounded secondary">
     <div class="mt-3 d-flex justify-content-center">
         <p class="display-2 pb-2 border-bottom fw-bold">{{name}}</p>
     </div>
@@ -12,18 +12,18 @@
         <img src={{headshot}}>
     </div>
     <div class="mt-3 d-flex justify-content-center">
-        <ul class="list-group h4 mb-3 fw-light">
-        <li class="list-group-item"> Player Number: {{ number }}</li>
-        <li class="list-group-item">Current Team: {{ team }}</li>
-        <li class="list-group-item">Position: {{position }}</li>
-        <li class="list-group-item">Signing Date: {{ debut }}</li>
-        <li class="list-group-item">Nickname: {{ nickname }}</li>
+        <ul class="list-group h4 mb-3">
+        <li class="list-group-item tertiary"> Player Number: {{ number }}</li>
+        <li class="list-group-item tertiary">Current Team: {{ team }}</li>
+        <li class="list-group-item tertiary">Position: {{position }}</li>
+        <li class="list-group-item tertiary">Signing Date: {{ debut }}</li>
+        <li class="list-group-item tertiary">Nickname: {{ nickname }}</li>
       </ul>
     </div>
 </div>
 
 <div class="table-responsive mt-5">
-<table class="table table-bordered bg-light shadow-sm">
+<table class="table table-bordered tertiary shadow-sm">
   <tr>
     {% for key, value in abbr.items %}
       <th data-bs-toggle="tooltip" title={{key}}> {{ value }} </th>
