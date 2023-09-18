@@ -12,13 +12,19 @@ def mlb(request):
 
 def compare(request):
     if request.method == 'POST':
-        name = request.POST.get('tags')
+        # name = request.POST.get('tags')
+        name = request.POST.get('name')
         print(name)
+        print(type(name))
+        # name = name.append(request.POST.get('tags'))
+        n = request.POST.get('tags')
+
+
         try:
-            pb = back.playerInfo2(name, 2023, 'hitting')
+            pb = back.playerInfo2(n, 2023, 'hitting')
             player_stats = pb[0]
             abbr = pb[1]
-            player_info = back.lookup(name)
+            player_info = back.lookup(n)
         except:
             return render(request, 'playerNotFound.html')
         f = open('PlayerList.json')
@@ -28,11 +34,11 @@ def compare(request):
         year = []
         for i in range(2003, date.year + 1):
             year.append(i)
-        print(year)
         return render(request, 'compare.html', {'data': data,
                                                 'year': year,
                                                 'playerStats': player_stats,
                                                 'abbr': abbr,
+                                                'name': name
                                                 })
     else:
         f = open('PlayerList.json')
@@ -42,9 +48,10 @@ def compare(request):
         year = []
         for i in range(2003,date.year + 1):
             year.append(i)
-        print(year)
         return render(request, 'compare.html', {'data': data,
-                                                'year': year})
+                                                'year': year,
+                                                'playerStats': {},
+                                                })
 
 
 def about(request):
