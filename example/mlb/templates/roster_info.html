@@ -19,6 +19,8 @@
     </ul>
 </div>
 </div>
+<form action="/player/" method = "post">
+    {% csrf_token %}
 <div class = 'container d-flex justify-content-center mt-5'>
   <table class="table table-bordered tertiary shadow-sm w-50">
             <tr>
@@ -29,11 +31,13 @@
        {% for player in lineup %}
             <tr>
                 <td>{{ player.number }}</td>
-                <td>{{ player.name }}</td>
+                <td>
+                    <input type="hidden" value ="{{player.position}}" name = "{{player.name}}">
+                    <input class="players-roster" type="submit" value="{{ player.name }}" name="tags"></td>
                 <td>{{ player.position }} </td>
             </tr>
         {% endfor %}
 </table>
 </div>
-
+</form>
 {% endblock content %}

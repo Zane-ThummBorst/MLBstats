@@ -22,14 +22,18 @@ def faq(request):
 def player(request):
     name = request.POST.get('tags')
     year = request.POST.get('year')
+    if year == None: year = 2023
     stat = request.POST.get('stat')
-    MLBAMID = 1;
+    if stat == None and request.POST.get(name) == 'P':
+        stat = 'pitching'
+    elif stat == None:
+        stat = 'hitting'
+    MLBAMID = 1
     f = open('razzball.json', encoding='utf-8')
     data = json.load(f)
     for player in data:
         if player['Name'] == name:
             MLBAMID = player['MLBAMID']
-    print(MLBAMID)
     f.close()
     headshot = 'https://midfield.mlbstatic.com/v1/people/' + str(MLBAMID) + '/spots/300'
     try:

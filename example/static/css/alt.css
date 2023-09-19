@@ -56,6 +56,15 @@ body {
     border-bottom-style: inset;
 }
 
+.players-roster{
+    border: none;
+    background: none;
+}
+
+.players-roster:hover{
+    color: green;
+}
+
 .ui-state-hover,
 .ui-state-active,
 .ui-state-focus {
