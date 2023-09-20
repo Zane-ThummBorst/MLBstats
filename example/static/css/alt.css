@@ -1,3 +1,21 @@
+nav {
+    background-color: #cf6262;
+}
+
+.secondary {
+    background-color: #cf6262;
+}
+
+.tertiary{
+background-color: #f6f0f0;
+}
+
+body {
+    font-family: 'Dosis', sans-serif;
+    background-color: #6ca3b9;
+    color: #f6f0f0;
+}
+
 .ui-autocomplete {
   position: absolute;
   top: 100%;
@@ -36,6 +54,15 @@
     white-space: nowrap;
     text-decoration: none;
     border-bottom-style: inset;
+}
+
+.players-roster{
+    border: none;
+    background: none;
+}
+
+.players-roster:hover{
+    color: green;
 }
 
 .ui-state-hover,
