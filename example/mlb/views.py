@@ -3,7 +3,7 @@ from django.template import loader
 from django.shortcuts import render
 from . import back
 
-import json,datetime
+import json, datetime
 
 
 def mlb(request):
@@ -29,6 +29,8 @@ def player(request):
     elif stat == None:
         stat = 'hitting'
     MLBAMID = 1
+
+    # can turn getting this id into a backend funtion
     f = open('razzball.json', encoding='utf-8')
     data = json.load(f)
     for player in data:
@@ -44,7 +46,7 @@ def player(request):
     except:
         return render(request, 'playerNotFound.html')
 
-    team = back.team(player_info.get('currentTeam').get('id'))
+    team = back.team_name(player_info.get('currentTeam').get('id'))
 
     try:
         nickname = player_info['nickName']
