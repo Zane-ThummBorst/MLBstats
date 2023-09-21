@@ -1,6 +1,6 @@
 import datetime
 import statsapi as sa
-
+import json
 
 '''
 TODO: replace return -1 statements and give functions return types
@@ -315,6 +315,41 @@ def playerInfo2(name: str, year: int, stat: str):
                 return [season['stats'], abbreviations if stat == 'hitting' else abbreviationsP]
         return -1
 
+def playerInfo3(name: str, year: int, stat: str):
+    people = sa.get('sports_players', {'season': year})['people']
+    for person in people:
+        if person['fullName'] == name:
+            season_stats = sa.player_stat_data(person.get('id'), stat, 'yearByYear')
+            season_stats = season_stats.get('stats')
+            for season in season_stats:
+                if season['season'] == str(year):
+                    return [season['stats'], abbreviations if stat == 'hitting' else abbreviationsP]
+    return -1
+
+
+def lookup2(name: str, year:int):
+    people = sa.get('sports_players', {'season': year})['people']
+    for person in people:
+        if person['fullName'] == name:
+            info = {}
+            print(person)
+            if person.get('nickName') == None:
+                info['nickName'] = 'NONE'
+            else:
+                info['nickName'] = person.get('nickName')
+
+            info['team'] = sa.get('team', params={'teamId': person.get('currentTeam')['id']})['teams'][0]['name']
+            info['position'] = person.get('primaryPosition')['abbreviation']
+            if person.get('primaryNumber') == None:
+                info['primaryNumber'] = 'NONE'
+            else:
+                info['primaryNumber'] = person.get('primaryNumber')
+            info['mlbDebutDate'] = person.get('mlbDebutDate')
+            info['headshot'] = 'https://midfield.mlbstatic.com/v1/people/' + str(person.get('id')) + '/spots/300'
+            return info
+    return -1
+
+
 
 '''
 error check API
@@ -326,12 +361,23 @@ arguments: NONE
 edge case(s): What if the api is down?
 '''
 
-
+# this function blows but idk if theres a better way to do it
 def retrieve_players():
     players = set()
-    for letter in alphabet:
-        for player in sa.lookup_player(letter):
-            players.add(player['fullName'])
+    years = range(1876,datetime.date.today().year+1)
+    for year in years:
+        print(year)
+        people = sa.get('sports_players', {'season': year})['people']
+        for person in people:
+            players.add(person['fullName'])
     return players
 
+def update_player_list():
+    people = list(retrieve_players())
+    people_list = {'list': people}
+    json_object = json.dumps(people_list, indent=4)
+    with open("../sample.json", "w") as outfile:
+        outfile.write(json_object)
 
+lookup2('Keith Hernandez', 1979)
+lookup2('Derek Jeter', 2003)

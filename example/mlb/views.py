@@ -28,55 +28,37 @@ def player(request):
         stat = 'pitching'
     elif stat == None:
         stat = 'hitting'
-    MLBAMID = 1
-
-    # can turn getting this id into a backend funtion
-    f = open('razzball.json', encoding='utf-8')
-    data = json.load(f)
-    for player in data:
-        if player['Name'] == name:
-            MLBAMID = player['MLBAMID']
-    f.close()
-    headshot = 'https://midfield.mlbstatic.com/v1/people/' + str(MLBAMID) + '/spots/300'
     try:
-        pb = back.playerInfo2(name, year, stat.lower())
+        print('here????')
+        pb = back.playerInfo3(name, year, stat.lower())
         player_stats = pb[0]
         abbr = pb[1]
-        player_info = back.lookup(name)
+        player_info = back.lookup2(name, year)
     except:
         return render(request, 'playerNotFound.html')
 
-    team = back.team_name(player_info.get('currentTeam').get('id'))
-
-    try:
-        nickname = player_info['nickName']
-    except:
-        nickname = "NONE"
 
     context = {
         'number': player_info['primaryNumber'],
-        'team': team,
-        'position': player_info['primaryPosition']['abbreviation'],
+        'team': player_info['team'],
+        'position': player_info['position'],
         'debut': player_info['mlbDebutDate'],
-        'nickname': nickname,
+        'nickname': player_info['nickName'],
         'playerStats': player_stats,
         'name': name,
         'abbr': abbr,
-        'headshot': headshot
+        'headshot': player_info['headshot']
     }
     return render(request, 'playerInfoB.html', context)
 
 def search(request):
-    # if request.method == "POST":
-    #   print("woo woooooo")
-    f = open('PlayerList.json')
+    f = open('sample.json')
     data = json.load(f)['list']
     f.close()
     date = datetime.date.today()
     year = []
-    for i in range(2003,date.year + 1):
+    for i in range(1876,date.year + 1):
         year.append(i)
-    print(year)
     return render(request, 'playerLookUpB.html', {'data': data,
                                                   'year': year})
 
@@ -94,5 +76,4 @@ def roster_info(request):
                                                     'team': team,
                                                     'record': record
                                                     })
-
 
